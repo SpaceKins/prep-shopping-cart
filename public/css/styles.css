@@ -11,7 +11,7 @@ header{
 	color: red;
 	display: inline-block;
 	padding-left: 20px;
-	width: 650px;
+	width: 580px;  /*650px;*/
 }
 
 .mainDecription{
@@ -26,7 +26,18 @@ header{
 }
 
 .itemPrice{
+	color: #bababa;
+		display: inline-block;
+	/*padding-left: 20px;*/
+	width: 60px;
+}
+
+.itemSubTotal{
 	color: grey;
+	font-weight: bold;
+	display: inline-block;
+	width: 80px;
+	text-align: right;
 }
 
 .totalsLabel{

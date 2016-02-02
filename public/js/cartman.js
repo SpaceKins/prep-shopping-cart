@@ -1,5 +1,5 @@
 var cartData=[
-{ "name": "Lusicious Jello Mix", "description": ["Very Elegant", "Trending item", "Come in Purple"], "price": 80.65 },
+{ "name": "Lusicious Jello Mix","description": ["Very Elegant", "Trending item", "Come in Purple"], "price": 80.65 },
 { "name": "Tarnished Standing Desk", "description": ["Modular", "Works for both Tall and Loud People", "Smells like Productivity"], "price": 1654.99},
 { "name": "Hand-made Hand Grenades", "description": ["Such gift!", "Much boom!", "Very safe for kids"], "price": 10.44},
 { "name": "Pan-fried Cookie Dough", "description": ["Chocolate", "Family-size", "Hot Mess"], "price": 16.99 },
@@ -56,6 +56,7 @@ function createItemDivRow(cartItem, itemNumber)
 	}
 
 	divRow.appendChild(createSpanPrice(cartItem.price,"price" + itemNumber));
+	divRow.appendChild(createSpanSubTotal(cartItem.price,"subTotal" + itemNumber));
 
 	return divRow;
 }
@@ -128,6 +129,11 @@ function createSpanPrice(itemPrice,itemPriceId)
 	return createSpanWithIdBack("wouldBeName", "itemPrice", "$" + itemPrice,itemPriceId);
 }
 
+function createSpanSubTotal(itemSubTotal,itemSubTotalId)
+{
+	return createSpanWithIdBack("wouldBeName", "itemSubTotal", "$" + itemSubTotal,itemSubTotalId);
+}
+
 function createSpanBack(spanName, spanclassName, spanTextValue)
 {
 	var newSpan=document.createElement("span");
@@ -174,37 +180,52 @@ function createSelectOptionList(thisId,values)
 
 function addToSelectListener(thisElement)
 {
-	function updateTotals(){
-		updateQuantity();  // thisElement Not needed;		
+	function updateSubTotalsEvent(thisElement){
+		updateSubTotals(thisElement);  // thisElement Not needed;		
 	}
 
-	thisElement.addEventListener('change',updateTotals);
+	thisElement.addEventListener('change',updateSubTotalsEvent);
 }
 
 function addToUpdateButtonListener(thisElement)
 {
 	function updateTotals(){
-		updateQuantity();  // thisElement Not needed;		
+		updateTotalAmount();  // thisElement Not needed;		
 	}
 
 	thisElement.addEventListener('click',updateTotals);
 }
 
-function updateQuantity()
+function updateSubTotals(thisElement)
 {
-   var rows=document.getElementsByClassName("itemRow");
+	var targetElement=thisElement.currentTarget;
+
+	var thisId=targetElement.id;
+	var selectIdNumber=thisId.replace("select","");
+
+	var thisPrice=document.getElementById("price" + selectIdNumber).innerHTML.replace("$","");   	  
+
+	var thisSelect=document.getElementById("select"+selectIdNumber).value;
+	var newSubTotal=thisPrice*thisSelect;
+
+	var thisSubTotal=document.getElementById("subTotal"+selectIdNumber);
+
+	var thisSubTotalTextNode=thisSubTotal.childNodes[0];
+
+
+	thisSubTotalTextNode.nodeValue= "$" + newSubTotal.toFixed(2);
+}
+
+function updateTotalAmount()
+{
+   var itemSubTotals=document.getElementsByClassName("itemSubTotal");
    var totalAmount=0;
+   var thisSubTotalAmount=0;
 
-
-   for(var i=0;i<rows.length;i++)
+   for(var i=0;i<itemSubTotals.length;i++)
    {
-   	  var price=rows[i].getElementsByClassName("itemPrice");
-   	  var thisPrice=price[0].innerHTML.replace("$","");   	  
-
-   	  var thisSelect=document.getElementById("select"+i);
-   	  var thisQuantity=thisSelect.value;
-
-   	  totalAmount+=(parseFloat(thisPrice) * thisQuantity);  //.toFixed(2) + parseFloat(priceString)
+   	  thisSubTotalAmount=itemSubTotals[i].innerHTML.replace("$","");   	  
+   	   totalAmount+=parseFloat(thisSubTotalAmount);  //.toFixed(2) + parseFloat(priceString)
    }
 
    var totalPriceSpan=document.getElementById("totalsAmountId");
@@ -212,5 +233,4 @@ function updateQuantity()
 
 
    totalPriceTextNode.nodeValue= "$" + totalAmount.toFixed(2);
-
 }
