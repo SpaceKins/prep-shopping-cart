@@ -1,0 +1,85 @@
+header{
+	background-color: #f5a623;	
+	padding: 20px;
+}
+
+.itemRow{
+	width: 900px;
+}
+
+.itemDescription{
+	color: red;
+	display: inline-block;
+	padding-left: 20px;
+	width: 650px;
+}
+
+.mainDecription{
+	font-size: 19px;
+	color: #4a4a4a;
+	font-weight: bold;
+}
+
+.subDecription{
+	font-size: 14px;
+	color: #bababa;
+}
+
+.itemPrice{
+	color: grey;
+}
+
+.totalsLabel{
+	display: inline-block;
+	padding-left: 10px;
+	width: 710px;  /*  adding 650 + 50 to compensate for selectOptions. Changed to 710 */
+	font-size: 19px;
+	color:#4a4a4a;
+}
+
+.totalsAmount{
+	font-size: 19px;
+	color: #4a4a4a;
+	font-weight: bold;
+}
+
+.totalsSpace{
+	display: inline-block;
+	width: 50px;
+}
+
+.selectSpan{
+	display: inline-block;
+	width: 50px;
+}
+
+#headerLabel{
+	height: 55px;
+	font-weight: bold;
+	font-size: 20px;
+	color: #a76a05;
+	padding-left: 10px;
+}
+
+#container{
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#headerContainerPad{
+	height: 50px;
+}
+
+#itemTotals{
+		width: 900px;
+}
+
+.pageButton{
+	background-color: #f5a623;
+	color: #ffffff;
+	box-shadow:0px 5px #cf8814;
+	border: 0px;
+	padding: 10px;
+	border-radius: 5px;
+}
